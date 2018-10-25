@@ -21,7 +21,8 @@ if __name__ == '__main__':
         payload = {'data': layer_output.flatten().tolist(), 'shape': layer_output.shape, 'split': split}
         headers = {'content-type': 'application/json'}
         response = requests.post('http://128.143.233.8:5000/partial_inference', json=payload, headers=headers)
-        print(response.elapsed.total_seconds())
         result = json.loads(response.text)
+        print("split: {}, response time: {}, inference time: {}".format(split, response.elapsed.total_seconds(),
+                                                                        result['inference_time']))
         print(np.array(result['prediction'])[:5])
 

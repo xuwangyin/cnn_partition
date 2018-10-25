@@ -10,6 +10,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import inception_v3
 from keras_applications import inception_v3 as keras_inception_v3
 import numpy as np
+import time
 
 
 app = Flask(__name__)
@@ -46,7 +47,9 @@ def partial_inference():
             request_data = json.loads(request.data)
             layer_output = np.array(request_data['data']).reshape(request_data['shape']).astype(np.float32)
             split1 = split_models[request_data['split']]
+            start_time = time.time()
             split_pred = split1.predict(layer_output)
+            data['inference_time'] = (time.time() - start_time)
             data['prediction'] = split_pred[0].tolist()
             data["success"] = True
         except:
