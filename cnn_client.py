@@ -17,7 +17,6 @@ if __name__ == '__main__':
     for split in ['mix0', 'mix1', 'mix2', 'mix3', 'mix4', 'mix5', 'mix6', 'mix7', 'mix8']:
         split0, split1 = inception_v3.InceptionV3(weights='imagenet', include_top=True, split=split)
         split0.load_weights('weights/inceptionv3_{}_split0.h5'.format(split))
-        # split1.load_weights('weights/inceptionv3_{}_split1.h5'.format(split))
         layer_output = split0.predict(x)
         payload = {'data': layer_output.flatten().tolist(), 'shape': layer_output.shape, 'split': split}
         headers = {'content-type': 'application/json'}

@@ -131,16 +131,3 @@ if __name__ == "__main__":
     print("loaded split models")
     app.run(host='0.0.0.0')
 
-
-# if __name__ == "__main__":
-#     print(("* Loading Keras model and Flask starting server..."
-#            "please wait until server has fully started"))
-#     global model
-#     global split2
-#     model = load_model()
-#     _, split2 = split_model(model, index=10)
-#     test_input = np.random.randn(1, 56, 56, 256).astype(np.float32)
-#     test_output = split2.predict(test_input)
-#     print(test_output.shape)
-#     print("loaded split")
-#     app.run(host='0.0.0.0')
