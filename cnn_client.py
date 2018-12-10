@@ -17,7 +17,7 @@ if __name__ == '__main__':
     for split in ['mix0', 'mix1', 'mix2', 'mix3', 'mix4', 'mix5', 'mix6', 'mix7', 'mix8']:
         split0, split1 = inception_v3.InceptionV3(weights='imagenet', include_top=True, split=split)
         split0.load_weights('weights/inceptionv3_{}_split0.h5'.format(split))
-        layer_output = split0.predict(x)
+        layer_output = split0.predict(x).astype(np.float16)
         payload = {'data': layer_output.flatten().tolist(), 'shape': layer_output.shape, 'split': split}
         headers = {'content-type': 'application/json'}
         response = requests.post('http://128.143.235.125:5000/partial_inference', json=payload, headers=headers)

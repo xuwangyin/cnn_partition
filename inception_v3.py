@@ -15,14 +15,17 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+import keras
+# from keras import get_keras_submodule
 
-from keras_applications import get_keras_submodule
+from keras import backend, layers, models
 
-backend = get_keras_submodule('backend')
-engine = get_keras_submodule('engine')
-layers = get_keras_submodule('layers')
-models = get_keras_submodule('models')
-keras_utils = get_keras_submodule('utils')
+
+# backend = get_keras_submodule('backend')
+# engine = get_keras_submodule('engine')
+# layers = get_keras_submodule('layers')
+# models = get_keras_submodule('models')
+# keras_utils = get_keras_submodule('utils')
 
 from keras_applications import imagenet_utils
 from keras_applications.imagenet_utils import decode_predictions
@@ -152,7 +155,7 @@ def InceptionV3(include_top=True,
         weights=weights)
 
     if input_tensor is None:
-        img_input = layers.Input(shape=input_shape)
+        img_input = layers.Input(shape=(229, 229, 3))
     else:
         if not backend.is_keras_tensor(input_tensor):
             img_input = layers.Input(tensor=input_tensor, shape=input_shape)

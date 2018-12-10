@@ -16,23 +16,6 @@ import time
 app = Flask(__name__)
 
 
-def save_split_models():
-    model = keras_inception_v3.InceptionV3(weights='imagenet', include_top=True)
-    x = np.random.rand(1, 299, 299, 3).astype(np.float32)
-    for split in ['mix0', 'mix1', 'mix2', 'mix3', 'mix4', 'mix5', 'mix6', 'mix7', 'mix8']:
-        split0, split1 = inception_v3.InceptionV3(weights='imagenet', include_top=True, split=split)
-
-        if not os.path.isfile('weights/inceptionv3_{}_split0.h5'.format(split)):
-            for l1, l2 in zip(split0.layers, model.layers):
-                l1.set_weights(l2.get_weights())
-            split0.save_weights('weights/inceptionv3_{}_split0.h5'.format(split))
-
-        if not os.path.isfile('weights/inceptionv3_{}_split1.h5'.format(split)):
-            for l1, l2 in zip(split1.layers[::-1], model.layers[::-1]):
-                l1.set_weights(l2.get_weights())
-            split1.save_weights('weights/inceptionv3_{}_split1.h5'.format(split))
-
-
 @app.route('/partial_inference', methods=['POST'])
 def partial_inference():
     data = {"success": False}
