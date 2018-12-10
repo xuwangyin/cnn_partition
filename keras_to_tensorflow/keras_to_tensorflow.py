@@ -137,6 +137,8 @@ def main(args):
         saver.save(sess, str(output_fld / output_model_stem))
 
     if FLAGS.save_tflite:
+        print(model.inputs)
+        print(model.outputs)
         converter = tf.lite.TFLiteConverter.from_session(sess, model.inputs, model.outputs)
         tflite_model = converter.convert()
         open(str(Path(output_fld) / output_model_tflite_name), "wb").write(tflite_model)

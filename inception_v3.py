@@ -155,7 +155,7 @@ def InceptionV3(include_top=True,
         weights=weights)
 
     if input_tensor is None:
-        img_input = layers.Input(shape=(229, 229, 3))
+        img_input = layers.Input(shape=(299, 299, 3))
     else:
         if not backend.is_keras_tensor(input_tensor):
             img_input = layers.Input(tensor=input_tensor, shape=input_shape)
