@@ -9,6 +9,7 @@ Send requests
 
     python cnn_client.py
 
+Input/output
 
     inceptionv3_mix2_split0.tflite
     input: [<tf.Tensor 'input_6:0' shape=(?, 299, 299, 3) dtype=float32>]
