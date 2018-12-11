@@ -9,6 +9,8 @@ to the freezed .pb tensorflow weight file. The resultant TensorFlow model
 holds both the model architecture and its associated weights.
 """
 
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 from tensorflow.python.framework import graph_util
 from tensorflow.python.framework import graph_io
@@ -137,8 +139,11 @@ def main(args):
         saver.save(sess, str(output_fld / output_model_stem))
 
     if FLAGS.save_tflite:
-        print(model.inputs)
-        print(model.outputs)
+        print("#############################")
+        print(output_model_tflite_name)
+        print("input: " + str(model.inputs))
+        print("output: " + str(model.outputs))
+        print("#############################")
         converter = tf.lite.TFLiteConverter.from_session(sess, model.inputs, model.outputs)
         tflite_model = converter.convert()
         open(str(Path(output_fld) / output_model_tflite_name), "wb").write(tflite_model)

@@ -17,15 +17,15 @@ def save_split_models():
         # if not os.path.isfile('weights/inceptionv3_{}_split0.h5'.format(split)):
         for l1, l2 in zip(split0.layers, model.layers):
             l1.set_weights(l2.get_weights())
-        # split0.save_weights('weights/inceptionv3_{}_split0.h5'.format(split))
-        split0.save('weights/inceptionv3_{}_split0.hdf5'.format(split))
+        split0.save_weights('weights-updated/inceptionv3_{}_split0.h5'.format(split))
+        split0.save('weights-updated/inceptionv3_{}_split0.hdf5'.format(split))
         print("saved split0")
 
         # if not os.path.isfile('weights/inceptionv3_{}_split1.h5'.format(split)):
         for l1, l2 in zip(split1.layers[::-1], model.layers[::-1]):
             l1.set_weights(l2.get_weights())
-        # split1.save_weights('weights/inceptionv3_{}_split1.h5'.format(split))
-        split1.save_weights('weights/inceptionv3_{}_split1.hdf5'.format(split))
+        split1.save_weights('weights-updated/inceptionv3_{}_split1.h5'.format(split))
+        split1.save('weights-updated/inceptionv3_{}_split1.hdf5'.format(split))
 
         print("saved " + split)
 
