@@ -1,4 +1,6 @@
 import json
+import gzip
+from io import StringIO
 
 import flask
 import os
@@ -27,7 +29,10 @@ def partial_inference():
                     }
     if flask.request.method == "POST":
         try:
-            request_data = json.loads(request.data)
+            if request.headers['Content-Encoding'] == 'gzip':
+                request_data = json.loads(gzip.decompress(request.data))
+            else:
+                request_data = json.loads(request.data)
             layer_output = np.array(request_data['data']).reshape(request_data['shape']).astype(np.float32)
             split1 = split_models[request_data['split']]
             start_time = time.time()
